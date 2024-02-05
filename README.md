@@ -1,0 +1,2 @@
+# kswitcher
+Kubectl config changer
