@@ -21,8 +21,6 @@ Ensure the following dependencies are met for the script to function correctly:
    git clone https://github.com/Morten03Nordbye/kswitcher.git
    cd kswitcher
    ```
-![Uploading image.png…]()
-
 2. **Make the script executable:**
 
    ```bash
