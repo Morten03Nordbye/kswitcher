@@ -1,7 +1,5 @@
-
 # kswitcher
 ![image](https://github.com/Morten03Nordbye/kswitcher/assets/74780083/b2c05fd6-befa-4c29-98c9-597dd73f8cdd)
-
 
 This script is designed to streamline the process of managing and switching between different Kubernetes configurations, particularly useful for consultants or administrators managing multiple customer environments. It provides a simplified, interactive interface to select and set a specific Kubernetes configuration as the active one.
 
@@ -12,6 +10,7 @@ Ensure the following dependencies are met for the script to function correctly:
 1. **Bash**: The primary environment for the script.
 2. **find & sort**: For locating and organizing Kubernetes configuration files.
 3. **ln**: To manage symlinks for Kubernetes configurations.
+4. **kubectl**: To validate Kubernetes configuration files and ensure they are not empty.
 
 ## Setup Instructions
 
