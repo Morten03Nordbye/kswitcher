@@ -16,20 +16,20 @@ Ensure the following dependencies are met for the script to function correctly:
 1. **Clone the repository** and navigate to the script's directory:
 
    ```bash
-   git clone https://github.com/yourusername/kubernetes-config-switcher.git
-   cd kubernetes-config-switcher
+   git clone https://github.com/yourusername/kswitcher.git
+   cd kswitcher
    ```
 
 2. **Make the script executable:**
 
    ```bash
-   chmod +x kube_config_switcher.sh
+   chmod +x kswitcher.sh
    ```
 
 3. **Run the script:**
 
    ```bash
-   ./kube_config_switcher.sh
+   ./kswitcher.sh
    ```
 
 Follow the prompts to choose and apply the desired Kubernetes configuration.
@@ -47,7 +47,7 @@ Adjust the following within the script as needed:
 For convenience, consider adding an alias to your shell profile (`~/.bashrc`, `~/.zshrc`, etc.):
 
 ```bash
-alias kubeswitch='~/path/to/kube_config_switcher.sh'
+alias kswitcher='~/path/to/kswitcher.sh'
 ```
 
 After adding the alias, apply the changes:
@@ -56,7 +56,7 @@ After adding the alias, apply the changes:
 source ~/.bashrc  # Or the relevant profile file for your shell
 ```
 
-Now, you can run the script using the `kubeswitch` command.
+Now, you can run the script using the `kswitcher` command.
 
 ## Example File Structure
 
