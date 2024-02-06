@@ -82,6 +82,12 @@ if ! kubectl --kubeconfig="$selected_config" config view &> /dev/null; then
     exit 1
 fi
 
+# Check if the selected configuration file is not empty
+if [ ! -s "$selected_config" ]; then
+    echo -e "${RED}The selected configuration file is empty. Please choose a different file or check the content.${RESET}"
+    exit 1
+fi
+
 # Update the symlink to point to the selected configuration
 ln -sfn "$selected_config" "$SYMLINK_PATH"
 echo -e "${ORANGE}Switched to ${WHITE}$(basename $(dirname "$selected_config")) / $(basename "$selected_config")${RESET}"
