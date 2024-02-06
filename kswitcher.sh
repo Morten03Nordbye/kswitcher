@@ -4,6 +4,7 @@
 ORANGE='\033[38;5;208m'  # Orange color from the 256-color palette
 WHITE='\033[1;37m'       # Bright White for better readability
 RESET='\033[0m'          # Reset to default terminal color
+RED='\033[0;31m'         # Red color for error messages
 
 # Define the directory containing the config files
 CONFIG_DIR="$HOME/.kube/customers"
@@ -50,7 +51,7 @@ display_configs() {
 # Find all config files in the CONFIG_DIR directory and sort them
 configs=($(find "$CONFIG_DIR" -type f | sort))
 if [ ${#configs[@]} -eq 0 ]; then
-    echo -e "${ORANGE}No configurations found in $CONFIG_DIR.${RESET}"
+    echo -e "${RED}No configurations found in $CONFIG_DIR. Please check the directory and try again.${RESET}"
     exit 1
 fi
 
@@ -58,18 +59,29 @@ display_header
 display_configs
 
 # Prompt the user to select a configuration
-echo -ne "${WHITE}Select configuration to use (1-${#configs[@]}): ${RESET}"
+echo -ne "${WHITE}Select configuration to use (1-${#configs[@]}) or type 'cancel' to exit: ${RESET}"
 read -r selection
+
+# Allow user to cancel operation
+if [[ "$selection" == "cancel" ]]; then
+    echo -e "${ORANGE}Operation cancelled by user.${RESET}"
+    exit 0
+fi
 
 # Validate the input is a number within range
 if ! [[ "$selection" =~ ^[0-9]+$ ]] || [ "$selection" -lt 1 ] || [ "$selection" -gt "${#configs[@]}" ]; then
-    echo -e "${ORANGE}Invalid selection. Exiting.${RESET}"
+    echo -e "${RED}Invalid selection. Exiting.${RESET}"
     exit 1
 fi
 
 selected_config="${configs[$((selection-1))]}"
 
+# Validate selected configuration file
+if ! kubectl --kubeconfig="$selected_config" config view &> /dev/null; then
+    echo -e "${RED}The selected configuration file is not valid. Please check the file and try again.${RESET}"
+    exit 1
+fi
+
 # Update the symlink to point to the selected configuration
 ln -sfn "$selected_config" "$SYMLINK_PATH"
 echo -e "${ORANGE}Switched to ${WHITE}$(basename $(dirname "$selected_config")) / $(basename "$selected_config")${RESET}"
-
