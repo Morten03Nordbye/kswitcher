@@ -1,5 +1,7 @@
 
 # kswitcher
+![image](https://github.com/Morten03Nordbye/kswitcher/assets/74780083/b2c05fd6-befa-4c29-98c9-597dd73f8cdd)
+
 
 This script is designed to streamline the process of managing and switching between different Kubernetes configurations, particularly useful for consultants or administrators managing multiple customer environments. It provides a simplified, interactive interface to select and set a specific Kubernetes configuration as the active one.
 
@@ -19,6 +21,7 @@ Ensure the following dependencies are met for the script to function correctly:
    git clone https://github.com/Morten03Nordbye/kswitcher.git
    cd kswitcher
    ```
+![Uploading image.png…]()
 
 2. **Make the script executable:**
 
