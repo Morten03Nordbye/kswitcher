@@ -16,7 +16,7 @@ Ensure the following dependencies are met for the script to function correctly:
 1. **Clone the repository** and navigate to the script's directory:
 
    ```bash
-   git clone https://github.com/yourusername/kswitcher.git
+   git clone https://github.com/Morten03Nordbye/kswitcher.git
    cd kswitcher
    ```
 
