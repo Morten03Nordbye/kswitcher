@@ -1,5 +1,5 @@
 
-# Kubernetes Configuration Switcher Script
+# kswitcher
 
 This script is designed to streamline the process of managing and switching between different Kubernetes configurations, particularly useful for consultants or administrators managing multiple customer environments. It provides a simplified, interactive interface to select and set a specific Kubernetes configuration as the active one.
 
