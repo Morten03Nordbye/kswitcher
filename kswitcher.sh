@@ -25,25 +25,39 @@ display_header() {
     echo -e "${ORANGE}Available Kubernetes Configurations:${RESET}"
 }
 
+# Function to display the active configuration
+display_active_config() {
+    local current_config=$(readlink -f "$SYMLINK_PATH")
+    if [ -n "$current_config" ]; then
+        local active_customer_name=$(basename $(dirname "$current_config"))
+        local active_config_file=$(basename "$current_config")
+        echo -e "${WHITE}Currently Active Configuration: ${ORANGE}$active_customer_name / $active_config_file${RESET}"
+    else
+        echo -e "${RED}No active configuration detected.${RESET}"
+    fi
+}
+
 # Function to display configurations with better formatting and symmetrical barriers
 display_configs() {
     local prev_customer=""
     local i=1
-    local barrier=$(printf '%*s' 80 | tr ' ' '-')  # Dynamic barrier length
-    
+    local barrier=$(printf '%*s' 80 | tr ' ' '-')
+    local current_config=$(readlink -f "$SYMLINK_PATH")
+
     for config in "${configs[@]}"; do
-        # Extract customer name and config file name
         local customer_name=$(basename $(dirname "$config"))
         local config_file=$(basename "$config")
 
-        # Insert a symmetrical barrier between different customers
         if [[ "$customer_name" != "$prev_customer" ]]; then
-            [[ -n "$prev_customer" ]] && echo -e "${ORANGE}$barrier${RESET}" # Orange barrier line
+            [[ -n "$prev_customer" ]] && echo -e "${ORANGE}$barrier${RESET}"
             prev_customer=$customer_name
         fi
 
-        # Display customer name in orange and config file in white for readability
-        echo -e "${ORANGE}$i) ${WHITE}$customer_name / $config_file${RESET}"
+        if [ "$config" == "$current_config" ]; then
+            echo -e "${ORANGE}$i) ${WHITE}$customer_name / $config_file (active)${RESET}"
+        else
+            echo -e "${ORANGE}$i) ${WHITE}$customer_name / $config_file${RESET}"
+        fi
         ((i++))
     done
 }
@@ -56,6 +70,7 @@ if [ ${#configs[@]} -eq 0 ]; then
 fi
 
 display_header
+display_active_config
 display_configs
 
 # Prompt the user to select a configuration
@@ -91,3 +106,4 @@ fi
 # Update the symlink to point to the selected configuration
 ln -sfn "$selected_config" "$SYMLINK_PATH"
 echo -e "${ORANGE}Switched to ${WHITE}$(basename $(dirname "$selected_config")) / $(basename "$selected_config")${RESET}"
+
