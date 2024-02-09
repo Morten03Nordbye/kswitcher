@@ -1,7 +1,8 @@
 
 # kswitcher
 
-![image](https://github.com/Morten03Nordbye/kswitcher/assets/74780083/b2c05fd6-befa-4c29-98c9-597dd73f8cdd)
+![image](https://github.com/Morten03Nordbye/kswitcher/assets/74780083/4a53771e-8b1a-4185-9444-63b0b9674f4e)
+
 
 This script is designed to streamline the process of managing and switching between different Kubernetes configurations, particularly useful for consultants or administrators managing multiple customer environments. It provides a simplified, interactive interface to select and set a specific Kubernetes configuration as the active one. Additionally, the script now supports executing any command after switching the configuration, allowing for seamless transitions between environments and immediate command execution.
 
