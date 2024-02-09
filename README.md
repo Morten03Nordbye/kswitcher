@@ -51,10 +51,10 @@ For convenience, consider adding aliases to your shell profile (`~/.bashrc`, `~/
 
 ```bash
 # Alias for fixed command execution
-alias kswitcher_nodes="/path/to/kswitcher.sh 'kubectl get nodes'"
+alias kswitcher"/path/to/kswitcher.sh 'kubectl get nodes'"
 
 # Alias for dynamic command execution
-alias kswitcher='function _ksw(){ /path/to/kswitcher.sh "$@"; }; _ksw'
+alias kswitcher"/path/to/kswitcher.sh"
 ```
 
 After adding the aliases, apply the changes:
