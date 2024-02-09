@@ -1,7 +1,9 @@
+
 # kswitcher
+
 ![image](https://github.com/Morten03Nordbye/kswitcher/assets/74780083/b2c05fd6-befa-4c29-98c9-597dd73f8cdd)
 
-This script is designed to streamline the process of managing and switching between different Kubernetes configurations, particularly useful for consultants or administrators managing multiple customer environments. It provides a simplified, interactive interface to select and set a specific Kubernetes configuration as the active one.
+This script is designed to streamline the process of managing and switching between different Kubernetes configurations, particularly useful for consultants or administrators managing multiple customer environments. It provides a simplified, interactive interface to select and set a specific Kubernetes configuration as the active one. Additionally, the script now supports executing any command after switching the configuration, allowing for seamless transitions between environments and immediate command execution.
 
 ## Dependencies
 
@@ -10,7 +12,7 @@ Ensure the following dependencies are met for the script to function correctly:
 1. **Bash**: The primary environment for the script.
 2. **find & sort**: For locating and organizing Kubernetes configuration files.
 3. **ln**: To manage symlinks for Kubernetes configurations.
-4. **kubectl**: To validate Kubernetes configuration files and ensure they are not empty.
+4. **kubectl** (optional): If intending to use Kubernetes commands post-switch.
 
 ## Setup Instructions
 
@@ -20,19 +22,20 @@ Ensure the following dependencies are met for the script to function correctly:
    git clone https://github.com/Morten03Nordbye/kswitcher.git
    cd kswitcher
    ```
+
 2. **Make the script executable:**
 
    ```bash
    chmod +x kswitcher.sh
    ```
 
-3. **Run the script:**
+3. **Run the script optionally with a command to execute after switching:**
 
    ```bash
-   ./kswitcher.sh
+   ./kswitcher.sh '<command>'
    ```
 
-Follow the prompts to choose and apply the desired Kubernetes configuration.
+   Replace `<command>` with any command you wish to execute after the configuration switch. For example, `./kswitcher.sh 'kubectl get nodes'`.
 
 ## Customization
 
@@ -42,36 +45,29 @@ Adjust the following within the script as needed:
 - **`SYMLINK_PATH`**: Destination for the symlink pointing to the active configuration.
 - **Color Variables**: Customize the script's appearance by modifying the defined color variables.
 
-## Creating an Alias
+## Creating an Alias with Command Support
 
-For convenience, consider adding an alias to your shell profile (`~/.bashrc`, `~/.zshrc`, etc.):
+For convenience, consider adding aliases to your shell profile (`~/.bashrc`, `~/.zshrc`, etc.) to support both fixed and dynamic command execution:
 
 ```bash
-alias kswitcher='~/path/to/kswitcher.sh'
+# Alias for fixed command execution
+alias kswitcher_nodes="/path/to/kswitcher.sh 'kubectl get nodes'"
+
+# Alias for dynamic command execution
+alias kswitcher='function _ksw(){ /path/to/kswitcher.sh "$@"; }; _ksw'
 ```
 
-After adding the alias, apply the changes:
+After adding the aliases, apply the changes:
 
 ```bash
 source ~/.bashrc  # Or the relevant profile file for your shell
 ```
 
-Now, you can run the script using the `kswitcher` command.
+Now, you have the flexibility to use `kswitcher_nodes` for a quick `kubectl get nodes` command after switching configurations, or use `kswitcher` with any command you need to run post-switch.
 
 ## Example File Structure
 
-The script expects Kubernetes configurations to be stored in a structured manner, typically under `~/.kube/customers`:
-
-```
-~/.kube/customers
-├── prefix1
-│   ├── config1
-│   └── config2
-└── prefix2
-    └── config1
-```
-
-Each subdirectory under `customers` represents a different customer or project prefix, containing the actual Kubernetes configuration files.
+Ensure your Kubernetes configuration files are organized within the `CONFIG_DIR` directory. The script will automatically find and list these configurations for selection.
 
 ## Important Notes
 
