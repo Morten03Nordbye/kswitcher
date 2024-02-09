@@ -107,3 +107,14 @@ fi
 ln -sfn "$selected_config" "$SYMLINK_PATH"
 echo -e "${ORANGE}Switched to ${WHITE}$(basename $(dirname "$selected_config")) / $(basename "$selected_config")${RESET}"
 
+# Pass command thru
+if [ $# -gt 0 ]; then
+    # The command to execute is the first argument to the script
+    command_to_execute="$1"
+
+    # Execute the command
+    echo "Executing command: $command_to_execute"
+    eval "$command_to_execute"
+else
+    echo "No command specified to execute after switching configuration."
+fi
