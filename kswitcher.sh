@@ -105,6 +105,13 @@ fi
 
 # Update the symlink to point to the selected configuration
 ln -sfn "$selected_config" "$SYMLINK_PATH"
+
+# Set correct permissions and ownership
+chmod 600 "$selected_config"
+chown $(whoami) "$selected_config"
+chmod 600 "$SYMLINK_PATH"
+chown $(whoami) "$SYMLINK_PATH"
+
 echo -e "${ORANGE}Switched to ${WHITE}$(basename $(dirname "$selected_config")) / $(basename "$selected_config")${RESET}"
 
 # Pass command thru
